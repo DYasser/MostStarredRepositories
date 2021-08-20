@@ -1,5 +1,10 @@
 <body>
   
+  <div class="title">
+    <h1 >Most Starred GitHub Repos</h1>
+    <p class="sub-title">in the last 30 days</p>
+  </div>
+  
   <div class="row" *ngFor="let repo of this.gitRepo">
     <!-- show a card for each repository in JSON -->
     <app-repository [repo] = repo></app-repository>
