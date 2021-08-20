@@ -1,1 +1,27 @@
-<p>repository works!</p>
+<mat-card class="repo-card">
+    <div fxLayout="row" fxLayoutAlign="start center" >
+        <div fxFlex="20">
+            <img mat-card-image [src]=repo.owner.avatar_url alt="Avatar">
+        </div> 
+        <div>
+            <mat-card-header>
+                <mat-card-title><a [href]=repo.html_url style="text-decoration: none; color: black;">{{repo.name}}</a></mat-card-title>
+                <mat-card-subtitle>By {{repo.owner.login}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p *ngIf="repo.description == null">
+                    No description, website, or topics provided.
+                </p>
+                <p>
+                    {{repo.description}}
+                </p>
+            </mat-card-content>
+
+            <mat-chip-list>
+                <mat-chip color="primary" selected><span class="icon"><mat-icon aria-hidden="false">star_border</mat-icon></span> Stars: {{repo.stargazers_count}}  </mat-chip>
+                <mat-chip color="warn" selected><span class="icon"><mat-icon aria-hidden="false">error_outline</mat-icon></span> Issues: {{repo.open_issues_count}} </mat-chip>
+                <p class="muted">Last updated: {{date}}</p>
+            </mat-chip-list>
+        </div>
+    </div>
+</mat-card>

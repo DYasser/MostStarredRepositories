@@ -1,7 +1,8 @@
 <body>
   
-  <div class="row">
-    <app-repository></app-repository>
+  <div class="row" *ngFor="let repo of this.gitRepo">
+    <!-- show a card for each repository in JSON -->
+    <app-repository [repo] = repo></app-repository>
   </div>
 
 </body>
