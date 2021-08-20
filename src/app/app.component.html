@@ -5,6 +5,11 @@
     <p class="sub-title">in the last 30 days</p>
   </div>
   
+  <!-- go to top button -->
+  <button mat-fab color="primary" (click)="goTop()">
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
+  
   <div class="row" *ngFor="let repo of this.gitRepo">
     <!-- show a card for each repository in JSON -->
     <app-repository [repo] = repo></app-repository>

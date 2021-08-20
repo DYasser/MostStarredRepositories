@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +7,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @HostListener("window:scroll", ["$event"])
+  onWindowScroll() {
+  //get the position of the scrollbar and max scroll height
+  let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+  let max = document.documentElement.scrollHeight;
+  // pagination, add 30 each time scrollbar hits max
+    if(pos == max && this.page < 34)   {
+      this.page++;
+      this.http.get("https://api.github.com/search/repositories?q=created:%3E"+this.date+"&sort=stars&order=desc&page="+this.page)
+      .subscribe( data => {
+        for(let i of data.items){
+          this.gitRepo.push(i);
+        }
+      })
+    }
+  }
+
   title = 'MostStarredRepositories';
 
   gitRepo = [];
@@ -16,6 +33,8 @@ export class AppComponent {
 
   //change to the format of the github api
   date = this.time[2] + "-" + this.time[1] + "-" + this.time[0]; 
+
+  page = 1;
 
   constructor(private http: HttpClient) { }
 
@@ -27,4 +46,10 @@ export class AppComponent {
       this.gitRepo = data.items;
     })
   }
+
+  goTop(){
+    document.body.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  }
+
 }
